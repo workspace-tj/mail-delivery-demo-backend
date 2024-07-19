@@ -1,0 +1,26 @@
+{
+  "name": "mail-delivery-demo-backend",
+  "version": "0.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev": "serverless offline start --reloadHandler --stage local",
+    "deploy": "serverless deploy --verbose --stage dev --region $DEPLOY_REGION",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "workspace-tj",
+  "license": "ISC",
+  "devDependencies": {
+    "serverless-deployment-bucket": "^1.6.0",
+    "serverless-dotenv-plugin": "^6.0.0",
+    "serverless-dynamodb-local": "^0.2.40",
+    "serverless-ignore": "^0.2.1",
+    "serverless-offline": "^13.6.0",
+    "serverless-prune-plugin": "^2.0.2",
+    "serverless-python-requirements": "^6.1.0"
+  },
+  "volta": {
+    "node": "20.15.1",
+    "npm": "10.8.2"
+  }
+}

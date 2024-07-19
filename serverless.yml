@@ -1,0 +1,104 @@
+useDotenv: true
+
+service: mail-delivery-demo
+frameworkVersion: "3"
+
+plugins:
+  - serverless-deployment-bucket
+  - serverless-dotenv-plugin
+  - serverless-offline
+  - serverless-ignore
+  - serverless-prune-plugin
+  - serverless-python-requirements
+
+custom:
+  default:
+    stage: dev
+
+  serverless-offline:
+    httpPort: 3333
+    noPrependStageInUrl: true
+
+  prune:
+    automatic: true
+    number: 3
+
+  pythonRequirements:
+    usePoetry: true
+    noDeploy:
+      - pytest
+      - boto3
+      - black
+      - mypy
+      - isort
+      - flake8
+      - taskipy
+
+  deploymentBucket:
+    versioning: true
+    accelerate: true
+    blockPublicAccess: true
+    tags:
+      - Key: Project
+        Value: python-api-test
+      - Key: Environment
+        Value: ${self:provider.stage}
+
+provider:
+  name: aws
+  runtime: python3.11
+  stage: ${opt:stage, self:custom.default.stage}
+  region: ${env:DEPLOY_REGION}
+
+  iam:
+    role:
+      statements:
+        - Effect: Allow
+          Action:
+            - "dynamodb:*"
+          Resource:
+            - "*"
+
+        - Effect: Allow
+          Action:
+            - "s3:*"
+          Resource:
+            - "*"
+
+        - Effect: Allow
+          Action:
+            - "ses:*"
+          Resource:
+            - "*"
+
+  versionFunctions: false
+
+  deploymentBucket:
+    name: ${self:service}-bucket-${self:provider.stage}
+    serverSideEncryption: AES256
+
+  environment:
+    TZ: Asia/Tokyo
+    STAGE: ${opt:stage, self:custom.default.stage}
+    # DynamoDBの設定
+    AWS_DYNAMODB_URL: ${file(./env/${opt:stage, self:custom.default.stage}.yml):AWS_DYNAMODB_URL}
+    # SESの設定
+    AWS_SES_VERIFIED_DOMAIN: ${file(./env/${opt:stage, self:custom.default.stage}.yml):AWS_SES_VERIFIED_DOMAIN}
+
+package:
+  individually: true
+  excludeDevDependencies: true
+  exclude:
+    - ./**
+  include:
+    - ./src/**
+
+functions:
+  ApplicationApiHandler:
+    description: ${self:service} API
+    handler: src/handlers/app.hello_world
+    events:
+      - http:
+          path: /{proxy+}
+          method: ANY
+          cors: true

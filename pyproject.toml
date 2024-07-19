@@ -1,0 +1,46 @@
+[tool.poetry]
+name = "mail-delivery-demo-backend"
+version = "0.1.0"
+description = ""
+authors = ["workspace-tj <workspace.tj@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+aws-lambda-powertools = "^2.41.0"
+pydantic = "^2.8.2"
+pynamodb = "^6.0.1"
+pynamodb-attributes = "^0.5.0"
+
+
+[tool.poetry.group.dev.dependencies]
+black = "^24.4.2"
+mypy = "^1.10.1"
+taskipy = "^1.13.0"
+boto3 = "^1.34.145"
+flake8 = "^7.1.0"
+isort = "^5.13.2"
+pytest = "^8.2.2"
+
+[tool.taskipy.tasks]
+test = "pytest"
+lint = "task lint-flake8 && task lint-mypy && task lint-isort && task lint-black"
+lint-flake8 = "flake8 src tests"
+lint-mypy = "mypy src tests"
+lint-isort = "isort --check src tests"
+lint-black = "black --check src tests"
+
+format = "task format-black && task format-isort"
+format-black = "black src tests"
+format-isort = "isort src tests"
+
+[tool.black]
+line-length = 119
+
+[tool.isort]
+profile = "black"
+line_length = 119
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
