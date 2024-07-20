@@ -1,5 +1,3 @@
-useDotenv: true
-
 service: mail-delivery-demo
 frameworkVersion: "3"
 
@@ -11,6 +9,7 @@ plugins:
   - serverless-prune-plugin
   - serverless-python-requirements
 
+useDotenv: true
 custom:
   default:
     stage: dev
@@ -48,7 +47,14 @@ provider:
   name: aws
   runtime: python3.11
   stage: ${opt:stage, self:custom.default.stage}
-  region: ${env:DEPLOY_REGION}
+  environment:
+    TZ: Asia/Tokyo
+    STAGE: ${opt:stage, self:custom.default.stage}
+    DEPLOY_REGION: ${opt:region, 'ap-northeast-1'}
+    DYNAMODB_URL: ${env:DYNAMODB_URL}
+    SQS_QUEUE_URL: { "Ref": "MailQueue" }
+    SES_REGION: ${opt:region, 'ap-northeast-1'}
+  region: ${DEPLOY_REGION}
 
   iam:
     role:
@@ -77,14 +83,6 @@ provider:
     name: ${self:service}-bucket-${self:provider.stage}
     serverSideEncryption: AES256
 
-  environment:
-    TZ: Asia/Tokyo
-    STAGE: ${opt:stage, self:custom.default.stage}
-    # DynamoDBの設定
-    AWS_DYNAMODB_URL: ${file(./env/${opt:stage, self:custom.default.stage}.yml):AWS_DYNAMODB_URL}
-    # SESの設定
-    AWS_SES_VERIFIED_DOMAIN: ${file(./env/${opt:stage, self:custom.default.stage}.yml):AWS_SES_VERIFIED_DOMAIN}
-
 package:
   individually: true
   excludeDevDependencies: true
@@ -92,6 +90,7 @@ package:
     - ./**
   include:
     - ./src/**
+    - ./.env
 
 functions:
   ApplicationApiHandler:
