@@ -1,6 +1,6 @@
 from pynamodb.models import Model
 from pynamodb.attributes import (
-    UnicodeAttribute, NumberAttribute, UnicodeSetAttribute, UTCDateTimeAttribute
+    UnicodeAttribute, UTCDateTimeAttribute
 )
 
 from utils.generate_id import generate_id
