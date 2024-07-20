@@ -6,7 +6,7 @@ from pynamodb.attributes import (
 from utils.generate_id import generate_id
 from datetime import datetime
 
-class Customer(Model):
+class CustomerModel(Model):
     class Meta:
         table_name = 'Customer'
 
