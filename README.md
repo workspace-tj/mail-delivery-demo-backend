@@ -29,6 +29,16 @@ poetry config virtualenvs.in-project true
 poetry install
 ```
 
+## Delopment in Local
+
+```bash
+docker compose up -d
+npm run dev
+
+# 終了
+docker compose down
+```
+
 ## Task
 
 test
@@ -64,3 +74,12 @@ task format
 demo 用 パッケージなので基本的には main ブランチの最新安定版しか使わないと思うので、各バージョンに対する個別のパッチは考えていません。
 
 管理の煩雑さを回避するためです。
+
+## Reference
+
+dynamodb local コンテナ
+
+- AWS 公式
+  <https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html>
+- Qiita 記事
+  <https://qiita.com/kiharito/items/17ff7d4eb098c6bf4656>
