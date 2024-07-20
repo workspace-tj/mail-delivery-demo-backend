@@ -25,7 +25,7 @@ html_text_field = Field(..., title="メール本文（html）", description="HTM
 # object_key_field = 
 
 class EmailRequestSchema(BaseSchema):
-    emailType: EmailType = email_type_field
+    email_type: EmailType = email_type_field
     subject: str = subject_field
     text: str = text_field
-    html_text_field: str = html_text_field
+    html_text: str = html_text_field
