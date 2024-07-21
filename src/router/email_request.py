@@ -4,6 +4,7 @@ from aws_lambda_powertools.event_handler.api_gateway import Router
 from controllers.email_request import EmailRequestController
 from schemas import errors
 from schemas.main import MessageSchema
+from schemas.email_request import EmailRequestSchema
 
 app = APIGatewayRestResolver(debug=True)
 router = Router()
@@ -34,5 +35,5 @@ DBに保管されているカスタマーデータのすべてのメールアド
         500: errors.INTERNAL_SERVER_ERROR,
     },
 )
-def queue_email_requests_to_customer_all() -> MessageSchema:
-    return controller.queue_email_requests_to_customer_all()  # type: ignore
+def queue_email_requests_to_customer_all(email_request: EmailRequestSchema) -> MessageSchema:
+    return controller.queue_email_requests_to_customer_all(email_request)  # type: ignore

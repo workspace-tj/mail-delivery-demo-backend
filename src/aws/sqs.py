@@ -1,4 +1,5 @@
-from typing import Any
+from typing import Any, Dict
+import json
 
 import boto3
 
@@ -10,5 +11,6 @@ class SQSClient:
         self.queue_url = queue_url
         self.client = boto3.client("sqs")
 
-    def send_message(self, message_body: dict[str, Any]):
-        self.client.send_message(QueueUrl=self.queue_url, MessageBody=message_body)
+    def send_message(self, message_body: Dict[str, Any]) -> Dict[str, Any]:
+        response = self.client.send_message(QueueUrl=self.queue_url, MessageBody=json.dumps(message_body))
+        return response
