@@ -83,3 +83,8 @@ dynamodb local コンテナ
   <https://docs.aws.amazon.com/ja_jp/amazondynamodb/latest/developerguide/DynamoDBLocal.DownloadingAndRunning.html>
 - Qiita 記事
   <https://qiita.com/kiharito/items/17ff7d4eb098c6bf4656>
+
+sqs local コンテナ
+
+- ローカルで SQS の動作を試す<https://zenn.dev/fujishiro/scraps/489f71b1bfc5e2>
+- AWS SQS のローカル開発環境を Docker で構築する<https://zenn.dev/tady/articles/cccbc4d11bf19a>
