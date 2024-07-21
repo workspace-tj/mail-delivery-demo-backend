@@ -1,8 +1,8 @@
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver
 from aws_lambda_powertools.utilities.typing import LambdaContext
-from router import email_request
 
 from models.customer import CustomerModel
+from router import email_request
 
 if not CustomerModel.exists():
     CustomerModel.create_table(wait=True, billing_mode="PAY_PER_REQUEST")

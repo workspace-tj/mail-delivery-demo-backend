@@ -2,6 +2,7 @@ from http import HTTPStatus
 
 from aws_lambda_powertools.event_handler.openapi.types import OpenAPIResponse
 from pydantic import Field
+
 from schemas.main import BaseSchema
 
 

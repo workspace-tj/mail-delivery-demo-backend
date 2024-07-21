@@ -2,12 +2,13 @@ from datetime import datetime
 
 from pydantic import Field
 
-from src.schemas.main import id_field, created_at_field, updated_at_field, BaseSchema
+from src.schemas.main import BaseSchema, created_at_field, id_field, updated_at_field
 
-email_field = Field(..., title="メールアドレス", description="ユーザーのメールアドレス", example="mail@example.com") # type: ignore
+email_field = Field(..., title="メールアドレス", description="ユーザーのメールアドレス", example="mail@example.com")  # type: ignore
 username_field = Field(
-        ..., title="ユーザー名", description="メール送信時に使用するユーザーの名前", example="山田太郎" # type: ignore
-    )
+    ..., title="ユーザー名", description="メール送信時に使用するユーザーの名前", example="山田太郎"  # type: ignore
+)
+
 
 class CustomerSchema(BaseSchema):
     id: str = id_field

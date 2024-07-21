@@ -1,12 +1,15 @@
 from aws_lambda_powertools.event_handler import APIGatewayRestResolver
 from aws_lambda_powertools.event_handler.api_gateway import Router
+
 from controllers.email_request import EmailRequestController
 from schemas import errors
 from schemas.main import MessageSchema
+
 app = APIGatewayRestResolver(debug=True)
 router = Router()
 
 controller = EmailRequestController()
+
 
 @router.post(
     "/all",
