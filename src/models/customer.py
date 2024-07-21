@@ -5,6 +5,7 @@ from pynamodb.models import Model
 
 from config.api import STAGE
 from utils.generate_id import generate_id
+from schemas.customer import CustomerSchema
 
 # NOTE: This is local endpoint for DynamoDB
 DYNAMODB_LOCAL_ENDPOINT = "http://localhost:8000"
@@ -22,3 +23,12 @@ class CustomerModel(Model):
     username = UnicodeAttribute()
     created_at = UTCDateTimeAttribute(default=datetime.now)
     updated_at = UTCDateTimeAttribute(default=datetime.now)
+    
+    def serializer(self) -> CustomerSchema:
+        return CustomerSchema(
+            id=self.id,
+            email=self.email,
+            username=self.username,
+            created_at=self.created_at.isoformat(),
+            updated_at=self.updated_at.isoformat(),
+        )

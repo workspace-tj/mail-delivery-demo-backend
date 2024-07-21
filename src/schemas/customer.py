@@ -9,10 +9,11 @@ username_field = Field(
     ..., title="ユーザー名", description="メール送信時に使用するユーザーの名前", example="山田太郎"  # type: ignore
 )
 
-
-class CustomerSchema(BaseSchema):
-    id: str = id_field
+class CustomerCreateRequestSchema(BaseSchema):
     email: str = email_field
     username: str = username_field
-    created_at: datetime = created_at_field
-    updated_at: datetime = updated_at_field
+
+class CustomerSchema(CustomerCreateRequestSchema):
+    id: str = id_field
+    # created_at: datetime = created_at_field
+    # updated_at: datetime = updated_at_field
