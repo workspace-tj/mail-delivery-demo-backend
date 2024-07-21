@@ -95,7 +95,7 @@ package:
 functions:
   ApplicationApiHandler:
     description: ${self:service} API
-    handler: src/handlers/app.hello_world
+    handler: src/handlers/app.lambda_handler
     events:
       - http:
           path: /{proxy+}
