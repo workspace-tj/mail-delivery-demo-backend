@@ -29,4 +29,4 @@ class BaseSchema(BaseModel):
 
 
 class MessageSchema(BaseSchema):
-    message = message_field
+    message: str = message_field

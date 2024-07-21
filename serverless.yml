@@ -54,7 +54,7 @@ provider:
     DYNAMODB_URL: ${env:DYNAMODB_URL}
     SQS_QUEUE_URL: { "Ref": "MailQueue" }
     SES_REGION: ${opt:region, 'ap-northeast-1'}
-  region: ${DEPLOY_REGION}
+  region: ${opt:region, 'ap-northeast-1'}
 
   iam:
     role:
@@ -74,6 +74,12 @@ provider:
         - Effect: Allow
           Action:
             - "ses:*"
+          Resource:
+            - "*"
+
+        - Effect: Allow
+          Action:
+            - "sqs:*"
           Resource:
             - "*"
 
