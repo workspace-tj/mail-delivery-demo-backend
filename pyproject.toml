@@ -11,6 +11,7 @@ aws-lambda-powertools = "^2.41.0"
 pydantic = "^2.8.2"
 pynamodb = "^6.0.1"
 pynamodb-attributes = "^0.5.0"
+python-dotenv = "^1.0.1"
 
 
 [tool.poetry.group.dev.dependencies]

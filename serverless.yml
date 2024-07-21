@@ -52,9 +52,9 @@ provider:
     STAGE: ${opt:stage, self:custom.default.stage}
     DEPLOY_REGION: ${opt:region, 'ap-northeast-1'}
     DYNAMODB_URL: ${env:DYNAMODB_URL}
-    SQS_QUEUE_URL: { "Ref": "MailQueue" }
+    SQS_QUEUE_URL: ${env:SQS_QUEUE_URL}
     SES_REGION: ${opt:region, 'ap-northeast-1'}
-  region: ${DEPLOY_REGION}
+  region: ${opt:region, 'ap-northeast-1'}
 
   iam:
     role:
@@ -77,6 +77,12 @@ provider:
           Resource:
             - "*"
 
+        - Effect: Allow
+          Action:
+            - "sqs:*"
+          Resource:
+            - "*"
+
   versionFunctions: false
 
   deploymentBucket:
@@ -95,7 +101,7 @@ package:
 functions:
   ApplicationApiHandler:
     description: ${self:service} API
-    handler: src/handlers/app.hello_world
+    handler: src/handlers/app.lambda_handler
     events:
       - http:
           path: /{proxy+}

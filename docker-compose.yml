@@ -20,3 +20,13 @@ services:
       - "8001:8001"
     depends_on:
       - dynamodb-local
+
+  elasticmq:
+    image: softwaremill/elasticmq
+    ports:
+      - "9324:9324"
+      - "9325:9325"
+    volumes:
+      - type: bind
+        source: ./custom.conf
+        target: /opt/elasticmq.conf
