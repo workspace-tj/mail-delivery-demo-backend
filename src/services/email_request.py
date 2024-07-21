@@ -1,7 +1,6 @@
 import json
 from typing import List
 
-from models.customer import CustomerModel
 from services.customer import CustomerService
 from schemas.customer import CustomerSchema
 from schemas.email_request import EmailRequestSchema
