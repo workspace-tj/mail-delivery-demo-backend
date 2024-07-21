@@ -2,7 +2,7 @@ from datetime import datetime
 
 from pydantic import Field
 
-from schemas.index import id_field, created_at_field, updated_at_field, BaseSchema
+from src.schemas.main import id_field, created_at_field, updated_at_field, BaseSchema
 
 email_field = Field(..., title="メールアドレス", description="ユーザーのメールアドレス", example="mail@example.com") # type: ignore
 username_field = Field(

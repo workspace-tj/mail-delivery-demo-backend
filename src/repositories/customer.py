@@ -1,5 +1,6 @@
-from models.customer import CustomerModel
 from typing import List
+
+from models.customer import CustomerModel
 
 class CustomerRepository():
     def find_all(self) -> List[CustomerModel]:

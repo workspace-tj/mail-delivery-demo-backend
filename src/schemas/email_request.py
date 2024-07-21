@@ -2,7 +2,7 @@ from enum import Enum
 
 from pydantic import Field
 
-from schemas.index import BaseSchema
+from src.schemas.main import BaseSchema
 
 class EmailType(str, Enum):
     REGISTER = "EMAIL_TYPE_REGISTER"
